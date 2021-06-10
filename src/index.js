@@ -36,6 +36,7 @@ async function onSearch(e) {
       loadMoreBtn.show();
     } catch {
       errorNotification();
+      loadMoreBtn.hide();
     }
   }
 }
@@ -52,6 +53,7 @@ async function fetchImages() {
   loadMoreBtn.disable();
   const images = await imagesApiService.fetchImages();
   renderImages(images);
+
   loadMoreBtn.enable();
 
   setTimeout(() => {
