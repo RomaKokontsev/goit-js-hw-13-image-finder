@@ -31,9 +31,9 @@ async function onSearch(e) {
   if (imagesApiService.query) {
     try {
       clearContainer();
+      loadMoreBtn.show();
       imagesApiService.resetPage();
       await fetchImages();
-      loadMoreBtn.show();
     } catch {
       errorNotification();
       loadMoreBtn.hide();
@@ -54,7 +54,11 @@ async function fetchImages() {
   const images = await imagesApiService.fetchImages();
   renderImages(images);
 
-  loadMoreBtn.enable();
+  if (images.length < 12) {
+    loadMoreBtn.hide();
+  } else {
+    loadMoreBtn.enable();
+  }
 
   setTimeout(() => {
     refs.galleryContainer.scrollIntoView({
